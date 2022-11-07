@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request
-import numpy as np
+import os
 import pandas as pd
 import joblib
 from helpers import parse_predict_form
@@ -21,11 +21,12 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    X_predict = parse_predict_form(request.form)
-    pred = model.predict(pd.DataFrame(X_predict, index=[0]))
-
+    pred = 0
+    if request.form:
+        X_predict = parse_predict_form(request.form)
+        pred = model.predict(pd.DataFrame(X_predict, index=[0]))
     return render_template('index.html', data=int(pred), neighborhoods=NEIGHBORHOODS)
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=os.environ.get("PORT", 80), debug=True)
