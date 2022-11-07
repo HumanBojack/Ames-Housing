@@ -1,7 +1,10 @@
-from flask import Flask, render_template, request
 import os
 import pandas as pd
 import joblib
+
+from flask import Flask, render_template, request
+from flask_sqlalchemy import SQLAlchemy
+
 from helpers import parse_predict_form
 
 NEIGHBORHOODS = ['NAmes', 'Gilbert', 'StoneBr', 'NWAmes', 'Somerst', 'BrDale',
@@ -11,6 +14,9 @@ NEIGHBORHOODS = ['NAmes', 'Gilbert', 'StoneBr', 'NWAmes', 'Somerst', 'BrDale',
        'MeadowV', 'Veenker', 'GrnHill', 'Landmrk']
 
 app = Flask(__name__)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
+db = SQLAlchemy(app)
+
 model = joblib.load(open('model.joblib', 'rb'))
 
 
