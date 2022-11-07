@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import numpy as np
 import pandas as pd
 import joblib
+from helpers import predict_form
 
 NEIGHBORHOODS = ['NAmes', 'Gilbert', 'StoneBr', 'NWAmes', 'Somerst', 'BrDale',
        'NPkVill', 'NridgHt', 'Blmngtn', 'NoRidge', 'SawyerW', 'Sawyer',
@@ -20,14 +21,7 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    X_predict = {}
-    for var in ['BsmtFin SF 1', 'Gr Liv Area', 'House Area', 'Neighborhood', 'Fireplaces', 'Overall Qual', 'Bsmt Qual', 'Kitchen Qual', 'Year Built', 'Year Remod/Add']:
-        # TODO: throw error if a var doesn't is equal to ''
-        if var in ["Neighborhood", "Bsmt Qual", "Kitchen Qual"]:
-            X_predict[var]= request.form[var]
-        else:
-            X_predict[var]= int(request.form[var])
-
+    X_predict = predict_form(request.form)
     pred = model.predict(pd.DataFrame(X_predict, index=[0]))
 
     return render_template('index.html', data=int(pred), neighborhoods=NEIGHBORHOODS)

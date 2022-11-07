@@ -23,7 +23,7 @@
                 Année de rénovation : <input type="number" name='Year Remod/Add' min="1950" max="2022"><br>
                 Qualité de la cave :
                 <select name="Bsmt Qual">
-                    {% for dim, qual in [("NA", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                    {% for dim, qual in [("None", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
                         <option value="{{dim}}">{{qual}}</option>
                     {% endfor %}
                 </select>
