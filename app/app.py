@@ -22,6 +22,7 @@ def index():
 def predict():
     X_predict = {}
     for var in ['BsmtFin SF 1', 'Gr Liv Area', 'House Area', 'Neighborhood', 'Fireplaces', 'Overall Qual', 'Bsmt Qual', 'Kitchen Qual', 'Year Built', 'Year Remod/Add']:
+        # TODO: throw error if a var doesn't is equal to ''
         if var in ["Neighborhood", "Bsmt Qual", "Kitchen Qual"]:
             X_predict[var]= request.form[var]
         else:
