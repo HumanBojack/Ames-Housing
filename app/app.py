@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 import numpy as np
 import pandas as pd
 import joblib
-from helpers import predict_form
+from helpers import parse_predict_form
 
 NEIGHBORHOODS = ['NAmes', 'Gilbert', 'StoneBr', 'NWAmes', 'Somerst', 'BrDale',
        'NPkVill', 'NridgHt', 'Blmngtn', 'NoRidge', 'SawyerW', 'Sawyer',
@@ -21,7 +21,7 @@ def index():
 
 @app.route('/predict', methods=['GET', 'POST'])
 def predict():
-    X_predict = predict_form(request.form)
+    X_predict = parse_predict_form(request.form)
     pred = model.predict(pd.DataFrame(X_predict, index=[0]))
 
     return render_template('index.html', data=int(pred), neighborhoods=NEIGHBORHOODS)
