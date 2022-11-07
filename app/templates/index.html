@@ -14,15 +14,25 @@
         <div class="form">
             <form action="{{url_for('predict')}}" method="POST">
 
-                Année de construction: <input type="number" name='Year Built' placeholder="Quelle est l'année de construction?"><br>
-                Surface (sqft) de la cave : <input type="number" name='BsmtFin SF 1' placeholder="Surface de la cave en m2"><br>
-                Surface totale : <input type="number" name='House Area' placeholder="Surface du 1er étage en m2"><br>
-                Surface habitable au sol : <input type="number" name='Gr Liv Area' placeholder="Surface habitable en m2"><br>
-                Nombre de cheminées : <input type="number" name='Fireplaces' placeholder="Surface du garage en m2"><br>
-                Qualité générale des finitions et des matériaux : <input type="number" name='Overall Qual' placeholder="Qualité entre 1 (très mauvais) et 10 (Excellent)"><br>
-                Qualité de la cave : <input type="number" name='Bsmt Qual' placeholder="Nombre de salles de bain"><br>
-                Qualité de la cuisine : <input type="text" name='Kitchen Qual' placeholder=" Ex:Excellent, Gd:Good, TA:Average, Fa:Fair, Po:Poor"><br>
-                Année de rénovation : <input type="text" name='Year Remod/Add' placeholder="Ex:Excellent, Gd:Good, TA:Average, Fa:Fair, Po:Poor"><br>
+                Année de construction: <input type="number" name='Year Built' min="1900" max="2022"><br>
+                Surface de la cave : <input type="number" name='BsmtFin SF 1' placeholder="Surface de la cave en sqft" min="0" max="10000"><br>
+                Surface totale : <input type="number" name='House Area' placeholder="Surface totale en sqft" min="0" max="10000"><br>
+                Surface habitable au sol : <input type="number" name='Gr Liv Area' placeholder="Surface habitable en sqft" min="0" max="10000"><br>
+                Nombre de cheminées : <input type="number" name='Fireplaces' min="0" max="10"><br>
+                Qualité générale des finitions et des matériaux : <input type="number" name='Overall Qual' placeholder="Qualité entre 1 (très mauvais) et 10 (Excellent)" min="1" max="10"><br>
+                Année de rénovation : <input type="number" name='Year Remod/Add' min="1950" max="2022"><br>
+                Qualité de la cave :
+                <select name="Bsmt Qual">
+                    {% for dim, qual in [("NA", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                        <option value="{{dim}}">{{qual}}</option>
+                    {% endfor %}
+                </select>
+                Qualité de la cuisine :
+                <select name="Kitchen Qual">
+                    {% for dim, qual in [("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                        <option value="{{dim}}">{{qual}}</option>
+                    {% endfor %}
+                </select>
                 Quartier :
                 <select name="Neighborhood">
                     {% for n in neighborhoods %}
