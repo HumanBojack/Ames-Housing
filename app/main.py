@@ -25,12 +25,12 @@ def index():
 @login_required
 def predict():
     pred = 0
+    status = 200
     if request.form:
         X_predict = parse_predict_form(request.form)
         pred = int(model.predict(pd.DataFrame(X_predict, index=[0])))
         try:
             save_prediction(X_predict, pred, current_user.email)
-            status = 200
         except:
             flash("Error while saving to database", "error")
             status = 500
