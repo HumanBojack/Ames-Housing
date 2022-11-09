@@ -1,39 +1,106 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="register_page">
-    <div class="form">
-        <form action="{{url_for('main.predict')}}" method="POST">
+<div class="column is-6 margin-auto">
+    <form action="{{url_for('main.predict')}}" method="POST">
 
-            Année de construction: <input type="number" name='Year Built' min="1900" max="2022"><br>
-            Surface de la cave : <input type="number" name='BsmtFin SF 1' placeholder="Surface de la cave en sqft" min="0" max="10000"><br>
-            Surface totale : <input type="number" name='House Area' placeholder="Surface totale en sqft" min="0" max="10000"><br>
-            Surface habitable au sol : <input type="number" name='Gr Liv Area' placeholder="Surface habitable en sqft" min="0" max="10000"><br>
-            Nombre de cheminées : <input type="number" name='Fireplaces' min="0" max="10"><br>
-            Qualité générale des finitions et des matériaux : <input type="number" name='Overall Qual' placeholder="Qualité entre 1 (très mauvais) et 10 (Excellent)" min="1" max="10"><br>
-            Année de rénovation : <input type="number" name='Year Remod/Add' min="1950" max="2022"><br>
-            Qualité de la cave :
-            <select name="Bsmt Qual">
-                {% for dim, qual in [("None", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
-                    <option value="{{dim}}">{{qual}}</option>
-                {% endfor %}
-            </select>
-            Qualité de la cuisine :
-            <select name="Kitchen Qual">
-                {% for dim, qual in [("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
-                    <option value="{{dim}}">{{qual}}</option>
-                {% endfor %}
-            </select>
-            Quartier :
-            <select name="Neighborhood">
-                {% for n in neighborhoods %}
-                    <option value="{{n}}">{{n}}</option>
-                {% endfor %}
-            </select>
-            <input type="submit" value="predict" class="submit">
-        </form>
-        <p> La maison vaut: {{data}}</p>
-    </div>
+        <div class="field">
+            <label class="label">Year Built</label>
+            <div class="control">
+                <input class="input" type="number" name='Year Built' min="1900" max="2022" placeholder="e.g. 1961">
+            </div>
+        </div>
 
+        <div class="field">
+            <label class="label">Basement Area (Type 1)</label>
+            <div class="control">
+                <input class="input" type="number" name='BsmtFin SF 1' placeholder="e.g. 192" min="0" max="10000">
+                <p class="help">In square feet</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">House Area</label>
+            <div class="control">
+                <input class="input" type="number" name='House Area' placeholder="e.g. 2048" min="0" max="10000">
+                <p class="help">In square feet</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Livable Ground Area</label>
+            <div class="control">
+                <input class="input" type="number" name='Gr Liv Area' placeholder="e.g. 888" min="0" max="10000">
+                <p class="help">In square feet</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Number of fireplaces</label>
+            <div class="control">
+                <input class="input" type="number" name='Fireplaces' placeholder="e.g. 0" min="0" max="10">
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Overall quality</label>
+            <div class="control">
+                <input class="input" type="number" name='Overall Qual' placeholder="e.g. 5" min="1" max="10">
+                <p class="help">Between 1 (very bad) and 10 (excellent)</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Year Remod/Add</label>
+            <div class="control">
+                <input class="input" type="number" name='Year Remod/Add' placeholder="e.g. 1961" min="1950" max="2022">
+                <p class="help">Input the built year if the house never has been remoded</p>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Basement quality</label>
+            <div class="control">
+                <div class="select">
+                    <select name="Bsmt Qual">
+                        {% for dim, qual in [("None", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                            <option value="{{dim}}">{{qual}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Kitchen quality</label>
+            <div class="control">
+                <div class="select">
+                    <select name="Kitchen Qual">
+                        {% for dim, qual in [("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                            <option value="{{dim}}">{{qual}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="field">
+            <label class="label">Neighborhood</label>
+            <div class="control">
+                <div class="select">
+                    <select name="Neighborhood">
+                        {% for n in neighborhoods %}
+                            <option value="{{n}}">{{n}}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="control">
+            <input type="submit" value="predict" class="button is-primary">
+        </div>
+    </form>
+    <p> La maison vaut: {{data}}</p>
 </div>
+
 {% endblock %}
