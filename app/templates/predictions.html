@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+{% with messages = get_flashed_messages(with_categories=True) %}
+{% if messages %}
+    {% if messages[0][0] == "error" %}
+        <div class="notification is-danger">
+    {% else %}
+        <div class="notification is-info">
+    {% endif %}
+        {{messages[0][1]}}
+    </div>
+{% endif %}
+{% endwith %}
+
+<table class="table is-hoverable">
+  <thead>
+    <tr>
+      <th>Overall quality</th>
+      <th>House area</th>
+      <th>Ground living area</th>
+      <th>Number of fireplaces</th>
+      <th>Basement surface of type 1</th>
+      <th>Year remod / add</th>
+      <th>Year built</th>
+      <th>Neighborhood</th>
+      <th>Kitchen Quality</th>
+      <th>Basement Quality</th>
+      <th>Predicted price</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for prediction in predictions %}
+      <tr>
+        <th>{{prediction["overall_qual"]}}</th>
+        <th>{{prediction["house_area"]}}</th>
+        <th>{{prediction["gr_liv_area"]}}</th>
+        <th>{{prediction["fireplaces"]}}</th>
+        <th>{{prediction["bsmtfin_sf_1"]}}</th>
+        <th>{{prediction["year_remod_add"]}}</th>
+        <th>{{prediction["year_built"]}}</th>
+        <th>{{prediction["neighborhood"]}}</th>
+        <th>{{prediction["kitchen_qual"]}}</th>
+        <th>{{prediction["bsmt_qual"]}}</th>
+        <th>{{prediction["predicted_price"]}}</th>
+        <th><a class="button" href="{{url_for('predictions.delete_prediction', id=prediction.id)}}">Delete</a></th>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+{% endblock %}
