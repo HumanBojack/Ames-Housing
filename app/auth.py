@@ -36,7 +36,6 @@ def post_register():
     password = request.form.get("password")
 
     user = User.query.filter_by(email=email).first()
-    print("user", user)
     if user:
         flash("Email address already exists")
         return redirect(url_for('auth.register'))
