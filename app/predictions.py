@@ -5,13 +5,13 @@ from app.models import Prediction, User
 
 predictions = Blueprint("predictions", __name__)
 
-@login_required
 @predictions.route("/")
+@login_required
 def index():
     return render_template("predictions.html", predictions=current_user.predictions)
 
-@login_required
 @predictions.route("/<int:id>") # TODO: use methods=["DELETE"])
+@login_required
 def delete_prediction(id):
     prediction = Prediction.query.filter_by(id=id).first()
     if prediction:
