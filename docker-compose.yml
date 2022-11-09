@@ -12,7 +12,7 @@ services:
       - "5000:5000"
     restart: on-failure:10
     volumes:
-    - .:/app
+    - ./app:/code/app
   postgres:
     image: postgres:latest
     environment:
