@@ -1,7 +1,7 @@
 import pandas as pd
 import joblib
 
-from flask import render_template, request, Blueprint, redirect, url_for
+from flask import render_template, request, Blueprint, redirect, url_for, flash
 from flask_login import login_required, current_user
 
 from app.helpers import parse_predict_form, save_prediction
@@ -28,6 +28,11 @@ def predict():
     if request.form:
         X_predict = parse_predict_form(request.form)
         pred = int(model.predict(pd.DataFrame(X_predict, index=[0])))
-        save_prediction(X_predict, pred, current_user.email)
+        try:
+            save_prediction(X_predict, pred, current_user.email)
+            status = 200
+        except:
+            flash("Error while saving to database", "error")
+            status = 500
 
-    return render_template('predict.html', data=pred, neighborhoods=NEIGHBORHOODS)
+    return render_template('predict.html', data=pred, neighborhoods=NEIGHBORHOODS), status
