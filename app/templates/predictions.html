@@ -50,5 +50,18 @@
   </tbody>
 </table>
 
+<script>
+  let deleteButtons = document.querySelectorAll(".button")
+
+  deleteButtons.forEach((btn) => {
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault()
+      await fetch(btn.href, {
+        method: 'DELETE'
+      })
+      window.location.reload(window.location)
+    })
+  })
+</script>
 
 {% endblock %}

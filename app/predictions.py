@@ -10,7 +10,8 @@ predictions = Blueprint("predictions", __name__)
 def index():
     return render_template("predictions.html", predictions=current_user.predictions)
 
-@predictions.route("/<int:id>") # TODO: use methods=["DELETE"])
+
+@predictions.route("/<int:id>", methods=["DELETE"])
 @login_required
 def delete_prediction(id):
     prediction = Prediction.query.filter_by(id=id).first()
@@ -19,5 +20,4 @@ def delete_prediction(id):
         flash(f"Successfully deleted prediction {id}", "info")
     else:
         flash(f"Cannot find prediction with id {id}", "error")
-
     return redirect(url_for('predictions.index'))
