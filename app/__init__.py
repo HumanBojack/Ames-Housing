@@ -42,6 +42,10 @@ def create_app():
     @login_manager.user_loader
     def load_user(email):
         return User.query.get(email)
+    
+    # Create the database if it doesn't already exists
+    from app import models
+    db.create_all(app=app)
         
     return app
 
