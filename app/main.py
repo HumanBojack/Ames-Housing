@@ -11,6 +11,7 @@ NEIGHBORHOODS = ['NAmes', 'Gilbert', 'StoneBr', 'NWAmes', 'Somerst', 'BrDale',
        'Greens', 'BrkSide', 'OldTown', 'IDOTRR', 'ClearCr', 'SWISU',
        'Edwards', 'CollgCr', 'Crawfor', 'Blueste', 'Mitchel', 'Timber',
        'MeadowV', 'Veenker', 'GrnHill', 'Landmrk']
+NEIGHBORHOODS.sort()
 
 main = Blueprint("main", __name__)
 model = joblib.load(open('app/model.joblib', 'rb'))
