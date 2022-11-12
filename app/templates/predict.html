@@ -63,7 +63,7 @@
             <div class="control">
                 <div class="select">
                     <select name="Bsmt Qual">
-                        {% for dim, qual in [("None", "Pas de cave"), ("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                        {% for dim, qual in [("None", "No basement"), ("Po", "Poor"), ("Fa", "Fair"), ("TA", "Average"), ("Gd", "Good"), ("Ex", "Excellent")] %}
                             <option value="{{dim}}">{{qual}}</option>
                         {% endfor %}
                     </select>
@@ -76,7 +76,7 @@
             <div class="control">
                 <div class="select">
                     <select name="Kitchen Qual">
-                        {% for dim, qual in [("Po", "Mauvaise"), ("Fa", "Correcte"), ("TA", "Moyenne"), ("Gd", "Bonne"), ("Ex", "Excellente")] %}
+                        {% for dim, qual in [("Po", "Poor"), ("Fa", "Fair"), ("TA", "Average"), ("Gd", "Good"), ("Ex", "Excellent")] %}
                             <option value="{{dim}}">{{qual}}</option>
                         {% endfor %}
                     </select>
@@ -100,7 +100,9 @@
             <input type="submit" value="predict" class="button is-primary">
         </div>
     </form>
-    <p> La maison vaut: {{data}}</p>
+    {% if data %}
+        <p> La maison vaut: {{data}}</p>
+    {% endif %}
 </div>
 
 {% endblock %}
