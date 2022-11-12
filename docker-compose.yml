@@ -6,6 +6,7 @@ services:
       - postgres
     environment:
       - DATABASE_URL=postgresql+psycopg2://db_login@postgres/app_db
+      - FLASK_DEBUG=1
     ports:
       - "5000:5000"
     command: flask run --host=0.0.0.0 --reload --debugger
